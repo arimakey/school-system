@@ -1,4 +1,4 @@
-export type Student = {
+export interface Student {
     code: string;
     name: string;
     last_name: string;
@@ -11,4 +11,4 @@ export type Student = {
     isActive: boolean;
     nationality?: string;
     gender?: "male" | "female" | "other";
-};
+}
