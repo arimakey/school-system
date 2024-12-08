@@ -1,51 +1,58 @@
-import { IsString, IsNotEmpty, IsOptional, IsDate, IsBoolean, IsEmail, IsEnum } from 'class-validator';
+import { Type } from 'class-transformer';
+import { 
+  IsString, 
+  IsNotEmpty, 
+  IsOptional, 
+  IsDate, 
+  IsBoolean, 
+  IsEmail, 
+  IsEnum 
+} from 'class-validator';
 
 export class CreateStudentDto {
-  @IsString()
-  @IsNotEmpty()
+  @IsString({ message: 'El código debe ser un texto.' })
+  @IsNotEmpty({ message: 'El código es obligatorio.' })
   code: string;
 
-  @IsString()
-  @IsNotEmpty()
+  @IsString({ message: 'El nombre debe ser un texto.' })
+  @IsNotEmpty({ message: 'El nombre es obligatorio.' })
   name: string;
 
-  @IsString()
-  @IsNotEmpty()
+  @IsString({ message: 'El apellido debe ser un texto.' })
+  @IsNotEmpty({ message: 'El apellido es obligatorio.' })
   last_name: string;
 
-  @IsString()
-  @IsNotEmpty()
+  @IsString({ message: 'El DNI debe ser un texto.' })
+  @IsNotEmpty({ message: 'El DNI es obligatorio.' })
   dni: string;
 
-  @IsEmail()
-  @IsNotEmpty()
+  @IsEmail({}, { message: 'El correo debe ser una dirección de correo válida.' })
+  @IsNotEmpty({ message: 'El correo es obligatorio.' })
   email: string;
 
-  @IsDate()
-  @IsNotEmpty()
+  @Type(() => Date)
+  @IsDate({ message: 'La fecha de nacimiento debe ser una fecha válida.' })
+  @IsNotEmpty({ message: 'La fecha de nacimiento es obligatoria.' })
   birthdate: Date;
 
-  @IsString()
+  @IsString({ message: 'La dirección debe ser un texto.' })
   @IsOptional()
   address?: string;
 
-  @IsString()
+  @IsString({ message: 'El número de teléfono debe ser un texto.' })
   @IsOptional()
   phoneNumber?: string;
 
-  @IsDate()
-  @IsNotEmpty()
+  @Type(() => Date)
+  @IsDate({ message: 'La fecha de matrícula debe ser una fecha válida.' })
+  @IsNotEmpty({ message: 'La fecha de matrícula es obligatoria.' })
   enrollmentDate: Date;
 
-  @IsBoolean()
-  @IsNotEmpty()
+  @IsBoolean({ message: 'El estado activo debe ser un valor booleano.' })
+  @IsOptional()
   isActive: boolean;
 
-  @IsString()
-  @IsOptional()
-  nationality?: string;
-
-  @IsEnum(['male', 'female', 'other'])
+  @IsEnum(['male', 'female', 'other'], { message: 'El género debe ser "male", "female" o "other".' })
   @IsOptional()
   gender?: 'male' | 'female' | 'other';
 }

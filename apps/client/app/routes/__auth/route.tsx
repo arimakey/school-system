@@ -6,10 +6,7 @@ function route() {
   
   return (
     <>
-      <Toaster
-        position="bottom-right"
-        reverseOrder={false}
-      />
+      
       <Outlet />
     </>
   )

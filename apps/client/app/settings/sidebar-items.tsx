@@ -23,7 +23,7 @@ const items = [
     },
     {
       title: "Usuarios",
-      url: "/usuarios",
+      url: "/users",
       icon: Group,
     },
     {

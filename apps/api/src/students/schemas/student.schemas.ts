@@ -1,11 +1,9 @@
-// src/students/schemas/student.schema.ts
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
 
 @Schema({
   timestamps: true
 })
-export class Student extends Document {
+export class Student {
   @Prop({
     required: true,
     unique: true,
@@ -55,14 +53,9 @@ export class Student extends Document {
   enrollmentDate: Date;
 
   @Prop({
-    required: true,
+    default: true
   })
   isActive: boolean;
-
-  @Prop({
-    required: false,
-  })
-  nationality: string;
 
   @Prop({
     required: false,

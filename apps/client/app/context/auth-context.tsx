@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { User } from "~/components/interfaces/user.interface";
+import { User } from "~/interfaces/user.interface";
 
 interface AuthContextProps {
   token: string | null;

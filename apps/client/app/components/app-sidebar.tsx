@@ -21,7 +21,7 @@ import {
 } from "./ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import items from "~/settings/sidebar-items";
-import { User } from "./interfaces/user.interface";
+import { User } from "../interfaces/user.interface";
 import { redirect } from "@remix-run/react";
 
 interface NavbarProps {
@@ -72,7 +72,7 @@ export function AppSidebar({ user }: NavbarProps) {
                   ) : (
                     <>
                       <Avatar className="h-8 w-8 rounded-lg">
-                        <AvatarImage src={user?.image || "/default-avatar.png"} alt={user?.username} />
+                        <AvatarImage src={user?.image || "#"} alt={user?.username} />
                         <AvatarFallback className="rounded-lg">{user?.username?.[0] || "U"}</AvatarFallback>
                       </Avatar>
                       <div className="grid flex-1 text-left text-sm leading-tight">
@@ -93,7 +93,7 @@ export function AppSidebar({ user }: NavbarProps) {
                   <DropdownMenuLabel className="p-0 font-normal">
                     <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                       <Avatar className="h-8 w-8 rounded-lg">
-                        <AvatarImage src={user?.image || "/default-avatar.png"} alt={user?.username} />
+                        <AvatarImage src={user?.image || "#"} alt={user?.username} />
                         <AvatarFallback className="rounded-lg">{user?.username}</AvatarFallback>
                       </Avatar>
                       <div className="grid flex-1 text-left text-sm leading-tight">

@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsOptional, IsString, IsStrongPassword } from "class-validator";
+import { IsEmail, IsNotEmpty, IsOptional, IsString, IsStrongPassword, IsUrl } from "class-validator";
 
 export class CreateRegisterDto {
     @IsString({ message: 'El nombre debe ser una cadena de texto.' })
@@ -9,10 +9,9 @@ export class CreateRegisterDto {
     @IsNotEmpty({ message: 'El correo electrónico es obligatorio.' })
     email: string;
 
-    @IsStrongPassword(undefined, {
-        message:
-            'La contraseña debe incluir al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.',
-    })
-    @IsNotEmpty({ message: 'La contraseña es obligatoria.' })
-    password: string;
+    @IsString({ message: 'El nombre debe ser una cadena de texto.' })
+    role: string;
+
+    @IsOptional({ message: 'La imagen es opcional.' })
+    image?: string;
 }

@@ -1,46 +1,65 @@
-import { Injectable, NotFoundException, UnauthorizedException, UseGuards } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+  UseGuards,
+} from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { CreateRegisterDto } from './dto/create-register.dto';
 import * as bcrypt from 'bcrypt';
 import { VerifyLoginDto } from './dto/verify-login.dot';
 import { JwtService } from '@nestjs/jwt';
+import * as generatePassword from 'generate-password';
 
 @Injectable()
 export class AuthService {
-    constructor (private readonly usersService : UsersService, private readonly jwtService : JwtService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly jwtService: JwtService,
+  ) {}
 
-    async login(user : VerifyLoginDto) {
-        const userData = await this.usersService.findOneByEmail(user.email);
-        
-        if (!userData) {
-            throw new NotFoundException('User not found');
-        }
+  async login(user: VerifyLoginDto) {
+    const userData = await this.usersService.findOneByEmail(user.email);
 
-        if (!await bcrypt.compare(user.password, userData.password)) {
-            throw new UnauthorizedException('Invalid password');
-        }
-
-        const payload = { sub: userData._id, email: user.email };
-
-
-        return {
-            access_token: await this.jwtService.signAsync(payload),
-            user: userData
-        };
+    if (!userData) {
+      throw new NotFoundException('User not found');
     }
 
-    async register(createRegister : CreateRegisterDto) {
-        try {
-            return this.usersService.create({
-                ...createRegister,
-                password: await bcrypt.hash(createRegister.password, 10)
-            });
-        } catch (error) {
-            if (error.code === 11000) {
-                throw new NotFoundException('Email already exists');
-            }
-
-            throw error;
-        }
+    if (!(await bcrypt.compare(user.password, userData.password))) {
+      throw new UnauthorizedException('Invalid password');
     }
+
+    const payload = { sub: userData._id, email: user.email };
+
+    return {
+      access_token: await this.jwtService.signAsync(payload),
+      user: userData,
+    };
+  }
+
+  async register(createRegister: CreateRegisterDto) {
+    try {
+      const password = generatePassword.generate({
+        length: 12,
+        numbers: true,
+        symbols: true,
+        uppercase: true,
+        lowercase: true,
+        excludeSimilarCharacters: true,
+      });
+
+      console.log('Contraseña generada:', password);
+
+      return this.usersService.create({
+        ...createRegister,
+        password: await bcrypt.hash(password, 10),
+      });
+    } catch (error) {
+      if (error.code === 11000) {
+        throw new NotFoundException('Email already exists');
+      }
+
+      throw error;
+    }
+  }
 }

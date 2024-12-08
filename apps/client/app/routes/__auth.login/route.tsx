@@ -1,4 +1,4 @@
-import { Link } from "@remix-run/react";
+import { Link, redirect, useNavigate } from "@remix-run/react";
 import { Button } from "../../components/ui/button";
 import {
   Card,
@@ -16,6 +16,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 export default function FormularioInicioSesion() {
   const [user, setUser] = useState({ email: "", password: "" });
+  const navigate = useNavigate()
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -34,7 +35,8 @@ export default function FormularioInicioSesion() {
           error: (err) => `${err.toString()}`,
         }
       );
-  
+      
+      navigate('/')
     } catch (error) {
       console.error("Error en el login:", error);
     }
