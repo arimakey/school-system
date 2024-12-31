@@ -28,4 +28,8 @@ export class GuardiansService {
   remove(id: string) {
     return this.guardianModel.findByIdAndDelete(id);
   }
+
+  findOneDni(dni: string) {
+    return this.guardianModel.findOne({dni});
+  }
 }

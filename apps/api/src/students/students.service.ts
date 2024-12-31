@@ -30,6 +30,6 @@ export class StudentsService {
   }
   
   findOneDni(dni: string) {
-    return this.studentModel.find({ dni });
+    return this.studentModel.findOne({dni});
   }
 }

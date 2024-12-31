@@ -24,23 +24,17 @@ export function FormUser({
     <div className="grid gap-4 py-4">
       {[
         {
-          id: "email",
-          label: "Email",
-          type: "email",
-          placeholder: "Enter email",
-        },
-        {
           id: "username",
           label: "Username",
           type: "text",
           placeholder: "Enter username",
         },
         {
-          id: "image",
-          label: "Profile Image URL",
-          type: "url",
-          placeholder: "Enter image URL (optional)",
-        },
+          id: "email",
+          label: "Email",
+          type: "email",
+          placeholder: "Enter email",
+        }
       ].map(({ id, label, type, placeholder }) => (
         <div key={id} className="grid grid-cols-4 items-center gap-4">
           <Label htmlFor={id} className="text-right">
@@ -70,9 +64,9 @@ export function FormUser({
             <SelectValue placeholder="Select role" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="admin">Admin</SelectItem>
-            <SelectItem value="user">User</SelectItem>
-            <SelectItem value="moderator">Moderator</SelectItem>
+            <SelectItem value="Director">Director</SelectItem>
+            <SelectItem value="Apoderado">Apoderado</SelectItem>
+            <SelectItem value="Secretario">Secretario</SelectItem>
           </SelectContent>
         </Select>
       </div>

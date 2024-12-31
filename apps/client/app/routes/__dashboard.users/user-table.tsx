@@ -14,7 +14,7 @@ import {
 import { User } from "~/interfaces/user.interface";
 
 export default function UserTable() {
-  const { users, toggleDeleteDialog } = useUsers();
+  const { users, toggleDeleteDialog, toggleRecoverDialog } = useUsers();
 
   const columns: ColumnDef<User>[] = [
     {
@@ -103,7 +103,13 @@ export default function UserTable() {
               >
                 Eliminar Usuario
               </DropdownMenuItem>
-              <DropdownMenuItem>Recuperar Contraseña</DropdownMenuItem>
+              <DropdownMenuItem
+              onClick={() =>{
+                const email = user.email;
+                toggleRecoverDialog(email)
+              }}>
+                Recuperar Contraseña
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         );

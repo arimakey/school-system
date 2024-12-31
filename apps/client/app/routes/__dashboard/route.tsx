@@ -2,13 +2,11 @@ import { SidebarProvider } from "../../components/ui/sidebar"
 import { AppSidebar } from "../../components/app-sidebar"
 import { Outlet, useNavigate } from "@remix-run/react"
 import AppNavbar from "~/components/app-navbar"
-import { useAuth } from "~/context/auth-context"
+import { useAuth } from "~/context/auth.context"
 
 export default function Layout() {
   const { user } = useAuth()
-  const navigate = useNavigate()
-
-
+  
   return (
     <SidebarProvider>
       <AppSidebar user={user}/>

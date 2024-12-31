@@ -12,6 +12,11 @@ export class StudentsController {
     return this.studentsService.create(createStudentDto);
   }
 
+  @Post('validate')
+  validate(@Body() validateStudentDto: CreateStudentDto) {
+    return validateStudentDto;
+  }
+
   @Get()
   findAll() {
     return this.studentsService.findAll();

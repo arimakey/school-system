@@ -6,7 +6,7 @@
     "**/.server/**/*.tsx",
     "**/.client/**/*.ts",
     "**/.client/**/*.tsx"
-, "app/routes/__dashboard.registers/route.jsx"  ],
+, "app/routes/__dashboard.registers/route.jsx", "app/routes/__dashboard.registration-processes/form-registration-processes.tss"  ],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "types": ["@remix-run/node", "vite/client"],

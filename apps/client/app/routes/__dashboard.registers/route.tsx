@@ -1,24 +1,20 @@
-import { CreateStudent } from "./create-student";
-import { StudentProvider } from "~/context/students-context";
-import StudentTable from './student-table';
-import DeleteStudent from "./delete-student";
+import { RegisterProvider } from "~/context/register-context";
+import RegisterTable from "./registers-table";
+import { RegisterDetail } from "./detail-registers";
+import { CreateRegister } from "./create-register";
+import { RegisterStepsProvider } from "~/context/register-steps-context";
 
 function StudentsPage() {
   return (
-    <StudentProvider>
+    <RegisterProvider>
       <main className="container mx-auto">
-        <header className="mb-6">
-          <h1 className="text-3xl font-bold text-center">Gestión de Estudiantes</h1>
-        </header>
-        <section className="mb-6">
-          <CreateStudent />
-        </section>
-        <section>
-          <StudentTable />
-          <DeleteStudent />
-        </section>
+        <RegisterStepsProvider>
+          <CreateRegister />
+        </RegisterStepsProvider>
+        <RegisterTable />
+        <RegisterDetail />
       </main>
-    </StudentProvider>
+    </RegisterProvider>
   );
 }
 

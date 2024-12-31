@@ -6,7 +6,8 @@ import {
   IsDate, 
   IsBoolean, 
   IsEmail, 
-  IsEnum 
+  IsEnum, 
+  IsUrl
 } from 'class-validator';
 
 export class CreateStudentDto {
@@ -43,11 +44,6 @@ export class CreateStudentDto {
   @IsOptional()
   phoneNumber?: string;
 
-  @Type(() => Date)
-  @IsDate({ message: 'La fecha de matrícula debe ser una fecha válida.' })
-  @IsNotEmpty({ message: 'La fecha de matrícula es obligatoria.' })
-  enrollmentDate: Date;
-
   @IsBoolean({ message: 'El estado activo debe ser un valor booleano.' })
   @IsOptional()
   isActive: boolean;
@@ -55,4 +51,8 @@ export class CreateStudentDto {
   @IsEnum(['male', 'female', 'other'], { message: 'El género debe ser "male", "female" o "other".' })
   @IsOptional()
   gender?: 'male' | 'female' | 'other';
+
+  @IsUrl({}, { message: 'La URL de la foto debe ser una dirección válida.' })
+  @IsOptional()
+  image: string;
 }

@@ -1,4 +1,12 @@
-import { IsString, IsOptional, IsDate, IsBoolean, IsEmail, IsEnum } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsDate,
+  IsBoolean,
+  IsEmail,
+  IsEnum,
+  IsUrl,
+} from 'class-validator';
 
 export class UpdateStudentDto {
   @IsString({ message: 'El código debe ser un texto.' })
@@ -17,7 +25,10 @@ export class UpdateStudentDto {
   @IsOptional()
   dni?: string;
 
-  @IsEmail({}, { message: 'El correo debe ser una dirección de correo válida.' })
+  @IsEmail(
+    {},
+    { message: 'El correo debe ser una dirección de correo válida.' },
+  )
   @IsOptional()
   email?: string;
 
@@ -33,15 +44,17 @@ export class UpdateStudentDto {
   @IsOptional()
   phoneNumber?: string;
 
-  @IsDate({ message: 'La fecha de matrícula debe ser una fecha válida.' })
-  @IsOptional()
-  enrollmentDate?: Date;
-
   @IsBoolean({ message: 'El estado activo debe ser un valor booleano.' })
   @IsOptional()
   isActive?: boolean;
 
-  @IsEnum(['male', 'female', 'other'], { message: 'El género debe ser "male", "female" o "other".' })
+  @IsEnum(['male', 'female', 'other'], {
+    message: 'El género debe ser "male", "female" o "other".',
+  })
   @IsOptional()
   gender?: 'male' | 'female' | 'other';
+
+  @IsUrl({}, { message: 'La URL de la foto debe ser una dirección válida.' })
+  @IsOptional()
+  image: string;
 }

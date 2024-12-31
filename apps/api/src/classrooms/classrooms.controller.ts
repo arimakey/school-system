@@ -1,34 +1,45 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
+import { CreateLevelDto } from './dto/create-level.dto';
+import { CreateGradeDto } from './dto/create-grade.dto';
+import { CreateSectionDto } from './dto/create-section.dto';
 import { ClassroomsService } from './classrooms.service';
-import { CreateClassroomDto } from './dto/create-classroom.dto';
-import { UpdateClassroomDto } from './dto/update-classroom.dto';
 
-@Controller('classrooms')
+@Controller('classroom')
 export class ClassroomsController {
-  constructor(private readonly classroomsService: ClassroomsService) {}
+  constructor(private readonly classroomService: ClassroomsService) {}
 
-  @Post()
-  create(@Body() createClassroomDto: CreateClassroomDto) {
-    return this.classroomsService.create(createClassroomDto);
+  @Post('levels')
+  createLevel(@Body() dto: CreateLevelDto) {
+    return this.classroomService.createLevel(dto);
   }
 
-  @Get()
-  findAll() {
-    return this.classroomsService.findAll();
+  @Post('grades')
+  createGrade(@Body() dto: CreateGradeDto) {
+    return this.classroomService.createGrade(dto);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.classroomsService.findOne(+id);
+  @Post('sections')
+  createSection(@Body() dto: CreateSectionDto) {
+    return this.classroomService.createSection(dto);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateClassroomDto: UpdateClassroomDto) {
-    return this.classroomsService.update(+id, updateClassroomDto);
+  @Get('levels')
+  findAllLevels() {
+    return this.classroomService.findAllLevels();
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.classroomsService.remove(+id);
+  @Get('grades/:levelId')
+  findGradesByLevel(@Param('levelId') levelId: string) {
+    return this.classroomService.findGradesByLevel(levelId);
+  }
+
+  @Get('sections/:gradeId')
+  findSectionsByGrade(@Param('gradeId') gradeId: string) {
+    return this.classroomService.findSectionsByGrade(gradeId);
+  }
+
+  @Delete('sections/:id')
+  removeSection(@Param('id') id: string) {
+    return this.classroomService.removeSection(id);
   }
 }

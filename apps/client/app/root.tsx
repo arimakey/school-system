@@ -6,7 +6,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
-import { AuthProvider } from "./context/auth-context"; // Importa el AuthProvider
+import { AuthProvider } from "./context/auth.context"; // Importa el AuthProvider
 import "./tailwind.css";
 import { Toaster } from "react-hot-toast";
 

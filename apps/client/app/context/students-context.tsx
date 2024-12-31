@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { deleteStudent, getStudents, postStudent } from "~/api/student";
 import { Student } from "~/interfaces/students.interface";
-import { useAuth } from "~/context/auth-context";
+import { useAuth } from "~/context/auth.context";
 
 interface StudentContextProps {
   students: Student[];

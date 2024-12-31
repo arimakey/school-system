@@ -5,6 +5,7 @@ import DeleteStudent from "./delete-user";
 import { UserProvider } from "~/context/users-context";
 import UserTable from "./user-table";
 import DeleteUser from "./delete-user";
+import RecoverPassword from "./recover-user";
 
 function UsersPage() {
   return (
@@ -16,6 +17,7 @@ function UsersPage() {
         <section>
           <UserTable />
           <DeleteUser />
+          <RecoverPassword />
         </section>
       </main>
     </UserProvider>

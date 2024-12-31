@@ -21,6 +21,7 @@ interface ReusableAlertDialogProps {
   onAction: () => void;
   isOpen: boolean;
   setIsOpen: () => void;
+
 }
 
 export function AppConfirmDialog({

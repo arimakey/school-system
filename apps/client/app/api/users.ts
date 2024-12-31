@@ -31,3 +31,18 @@ export async function deleteUser(id: string, token: string): Promise<User> {
     throw new Error(error.message || "No se pudo eliminar el usuario.");
   }
 }
+
+
+export async function recoverPassword(email: string, token: string): Promise<User> {
+    try {
+      const response = await fetchClient<User>(`auth/recovery`, {
+        method: "POST",
+        token: token,
+        body: JSON.stringify({email}),
+      });
+  
+      return response;
+    } catch (error: any) {
+      throw new Error(error.message || "No se pudo eliminar el usuario.");
+    }
+  }

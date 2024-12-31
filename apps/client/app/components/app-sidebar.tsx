@@ -20,9 +20,9 @@ import {
   SidebarMenuItem,
 } from "./ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import items from "~/settings/sidebar-items";
 import { User } from "../interfaces/user.interface";
-import { redirect } from "@remix-run/react";
+import { Link, redirect, useNavigate } from "@remix-run/react";
+import getItems from "~/settings/sidebar-items";
 
 interface NavbarProps {
   user: User | null;
@@ -30,6 +30,7 @@ interface NavbarProps {
 
 export function AppSidebar({ user }: NavbarProps) {
   const isLoading = !user;
+  const navigate = useNavigate()
 
   return (
     <Sidebar collapsible="icon">
@@ -38,7 +39,7 @@ export function AppSidebar({ user }: NavbarProps) {
           <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
+              {getItems(user?.role || "Apoderado").map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <a href={item.url}>
@@ -104,19 +105,22 @@ export function AppSidebar({ user }: NavbarProps) {
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuGroup>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => {
+                    navigate("/profile")
+                  }}
+                      className="hover:cursor-pointer">
                       <Sparkles />
-                      Ver Perfil
+                        Ver Perfil
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={() => {
                     localStorage.removeItem('user')
                     localStorage.removeItem('access_token')
 
-                    return redirect("/login")
-                  }}>
+                    navigate("/login")
+                  }}
+                      className="hover:cursor-pointer"
+                    >
                     <LogOut />
                     Log out
                   </DropdownMenuItem>

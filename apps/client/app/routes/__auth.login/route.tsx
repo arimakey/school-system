@@ -13,9 +13,11 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { login } from "~/api/auth";
 
 import toast, { Toaster } from 'react-hot-toast';
+import { useAuth } from "~/context/auth.context";
 
 export default function FormularioInicioSesion() {
   const [user, setUser] = useState({ email: "", password: "" });
+  const {setToken} = useAuth()
   const navigate = useNavigate()
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -27,15 +29,16 @@ export default function FormularioInicioSesion() {
     e.preventDefault();
   
     try {
-      const response = await toast.promise(
+      const data = await toast.promise(
         login(user),
         {
-          loading: 'Saving...',
+          loading: 'Cargando...',
           success: <b>Inicio de sesion exitoso!</b>,
           error: (err) => `${err.toString()}`,
         }
       );
-      
+
+      await setToken(data.access_token)
       navigate('/')
     } catch (error) {
       console.error("Error en el login:", error);
@@ -94,15 +97,6 @@ export default function FormularioInicioSesion() {
               Iniciar Sesión
             </Button>
           </form>
-          <div className="mt-4 text-center text-sm text-gray-600">
-            ¿No tienes una cuenta?{" "}
-            <Link
-              to="/registro"
-              className="text-blue-500 hover:underline focus:outline-none"
-            >
-              Regístrate aquí
-            </Link>
-          </div>
         </CardContent>
       </Card>
     </div>

@@ -22,6 +22,7 @@ export async function login(
         method: "POST",
         body: JSON.stringify(credentials),
       });
+
   
       localStorage.setItem("access_token", response.access_token);
       localStorage.setItem("user", JSON.stringify(response.user));

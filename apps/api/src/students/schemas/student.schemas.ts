@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema({
-  timestamps: true
+  timestamps: true,
 })
 export class Student {
   @Prop({
@@ -48,12 +48,7 @@ export class Student {
   phoneNumber: string;
 
   @Prop({
-    required: true,
-  })
-  enrollmentDate: Date;
-
-  @Prop({
-    default: true
+    default: true,
   })
   isActive: boolean;
 
@@ -62,6 +57,11 @@ export class Student {
     enum: ['male', 'female', 'other'],
   })
   gender: 'male' | 'female' | 'other';
+
+  @Prop({
+    required: false,
+  })
+  image: string;
 }
 
 export const StudentSchema = SchemaFactory.createForClass(Student);

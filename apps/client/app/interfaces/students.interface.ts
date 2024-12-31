@@ -10,4 +10,5 @@ export interface Student {
   phoneNumber?: string;
   enrollmentDate: Date;
   gender?: "male" | "female" | "other";
+  image?: string;
 }

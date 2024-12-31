@@ -12,6 +12,12 @@ export class GuardiansController {
     return this.guardiansService.create(createGuardianDto);
   }
 
+  @Post('/validate')
+  validate(@Body() createGuardianDto: CreateGuardianDto) {
+    return createGuardianDto;
+  }
+
+
   @Get()
   findAll() {
     return this.guardiansService.findAll();
@@ -30,5 +36,10 @@ export class GuardiansController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.guardiansService.remove(id);
+  }
+
+  @Get('search/:dni')
+  findOneDni(@Param('dni') dni : string){
+    return this.guardiansService.findOneDni(dni)
   }
 }

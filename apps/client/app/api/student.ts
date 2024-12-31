@@ -20,6 +20,21 @@ export async function postStudent(student : Student, token : string): Promise<St
 }
 
 
+export async function validateStudent(student : Student, token : string): Promise<Student> {
+  try {
+    const response = await fetchClient<Student>("students/validate", {
+      method: "POST",
+      body: JSON.stringify(student),
+      token: token
+    });
+
+    return response;
+  } catch (error: any) {
+      throw new Error(error.message || "Los datos del estudiante no son validos.");
+  }
+}
+
+
 
 export async function deleteStudent(id : string, token : string): Promise<Student> {
     try {
@@ -34,6 +49,12 @@ export async function deleteStudent(id : string, token : string): Promise<Studen
     }
 }
 
-export async function searchStudent(dni: string, token: string): Promise<Student[]> {
+export async function searchStudent(dni: string, token: string): Promise<Student> {
     return fetchClient(`students/search/${dni}`, { token });
 }
+
+
+export async function findRegistersByGuardianEmail(dni: string, token: string): Promise<Student[]> {
+  return fetchClient(`registers/guardian/${dni}`, { token });
+}
+

@@ -11,7 +11,4 @@ export class CreateRegisterDto {
 
     @IsString({ message: 'El nombre debe ser una cadena de texto.' })
     role: string;
-
-    @IsOptional({ message: 'La imagen es opcional.' })
-    image?: string;
 }

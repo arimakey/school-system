@@ -1,34 +1,61 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { RegistersService } from './registers.service';
 import { CreateRegisterDto } from './dto/create-register.dto';
 import { UpdateRegisterDto } from './dto/update-register.dto';
+import { RegistersService } from './registers.service';
 
 @Controller('registers')
 export class RegistersController {
-  constructor(private readonly registersService: RegistersService) {}
+  constructor(private readonly registerService: RegistersService) {}
 
   @Post()
-  create(@Body() createRegisterDto: CreateRegisterDto) {
-    return this.registersService.create(createRegisterDto);
+  async create(@Body() createRegisterDto: CreateRegisterDto) {
+    return this.registerService.create(createRegisterDto);
   }
 
-  @Get()
-  findAll() {
-    return this.registersService.findAll();
+  @Get('')
+  async findAllAprobated() {
+    return this.registerService.findAllAprobated();
+  }
+
+  
+  @Get('/all')
+  async findAll() {
+    return this.registerService.findAll();
+  }
+  
+  @Get('not-aprobated')
+  async getNotAprobatedRegisters() {
+    return this.registerService.getNotAprobatedRegisters();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.registersService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return this.registerService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRegisterDto: UpdateRegisterDto) {
-    return this.registersService.update(+id, updateRegisterDto);
+  async update(@Param('id') id: string, @Body() updateRegisterDto: UpdateRegisterDto) {
+    return this.registerService.update(id, updateRegisterDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.registersService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return this.registerService.remove(id);
+  }
+
+  @Get('sections/:id/:levelId')
+  async getSectionsByLevel(@Param('levelId') levelId: string, @Param('id') id: string) {
+    return this.registerService.getSectionsByGradeWithCapacity(levelId, id);
+  }
+
+
+  @Post('aprobate/:id')
+  async aprobateRegister(@Param('id') id: string) {
+    return this.registerService.aprobateRegister(id);
+  }
+
+  @Get('/guardian/:id')
+  async findRegistersByGuardianEmail(@Param('id') id: string) {
+    return this.registerService.findRegistersByGuardianEmail(id);
   }
 }
